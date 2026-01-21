@@ -6,7 +6,7 @@
   "author": "Tetri Mesquita",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tetri/SemanticVersioning.git"
+    "url": "git+https://github.com/tetri/SemanticVersioningNPM.git"
   },
   "homepage": "https://github.com/tetri/SemanticVersioning",
   "bugs": {
