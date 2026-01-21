@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: npm/package-lock.json
+      - name: Install
+        working-directory: npm
+        run: npm install
+      - name: Typecheck
+        working-directory: npm
+        run: npm run typecheck
+      - name: Test
+        working-directory: npm
+        run: npm test
+      - name: Build
+        working-directory: npm
+        run: npm run build
+
