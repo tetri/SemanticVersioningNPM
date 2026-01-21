@@ -137,44 +137,51 @@ try {
 }
 ```
 
-## Publicação no npm via tags do GitHub (GitHub Actions)
+## Publicação no npm (Trusted Publisher)
 
-Sim — é possível publicar automaticamente no npm **a partir da criação de tags** no GitHub. Este repositório inclui um workflow que:
+Este pacote usa **Trusted Publisher** do npm para publicação automática via GitHub Actions. O processo é totalmente automatizado e seguro.
 
-- roda testes + build
-- lê a tag no formato `vX.Y.Z` (ex.: `v1.2.3`)
-- ajusta a versão do `package.json` **apenas dentro do runner** (sem commit)
-- publica no npm com `npm publish`
+### Como publicar uma nova versão
 
-### Pré-requisitos
-
-- Você precisa de um token do npm com permissão de publish.
-  - Recomendado: **Automation token** (npm).
-- No GitHub, criar um secret no repositório:
-  - `NPM_TOKEN`: o token do npm.
-
-### Como configurar (GitHub)
-
-1. Vá em **Settings → Secrets and variables → Actions**
-2. Crie **New repository secret**
-3. Nome: `NPM_TOKEN`
-4. Valor: seu token do npm
-
-### Como publicar uma versão
-
-Crie e envie uma tag no padrão `vX.Y.Z`:
+Use os scripts convenientes do `package.json`:
 
 ```bash
-git tag v1.2.3
-git push origin v1.2.3
+# Para versão patch (ex: 0.0.2 → 0.0.3)
+npm run version:patch
+
+# Para versão minor (ex: 0.0.2 → 0.1.0)
+npm run version:minor
+
+# Para versão major (ex: 0.0.2 → 1.0.0)
+npm run version:major
 ```
 
-Isso dispara o workflow e publica `@tetri/semantic-versioning@1.2.3`.
+**O que cada comando faz automaticamente:**
+
+1. **Atualiza** `package.json` com a nova versão
+2. **Cria commit** da mudança
+3. **Cria tag** anotada (`v0.0.3`, etc.)
+4. **Faz push** do commit e da tag para o GitHub
+
+### O que acontece depois
+
+O GitHub Actions detecta a nova tag e:
+
+1. **Roda testes** e build
+2. **Publica automaticamente** no npm via Trusted Publisher
+3. **Gera provenance** para verificação de integridade
+
+### Pré-requisitos (já configurados)
+
+- ✅ **Trusted Publisher** habilitado no npm para este repositório
+- ✅ **Workflow** `.github/workflows/publish.yml` configurado
+- ✅ **Permissões OIDC** habilitadas no GitHub Actions
 
 ### Notas importantes
 
-- A versão publicada **vem da tag** (`v1.2.3` → `1.2.3`), não do valor fixo atual do `package.json`.
-- Se você tentar publicar uma versão que já existe no npm, o `npm publish` falha (comportamento esperado).
+- O `package.json` **deve estar** com a versão correta antes de criar a tag
+- Não publique versões que já existem no npm
+- O processo é totalmente automático após rodar `npm run version:*`
 
 ## Licença
 
