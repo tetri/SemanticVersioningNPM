@@ -1,6 +1,6 @@
 {
   "name": "@tetri/semantic-versioning",
-  "version": "0.0.0-development",
+  "version": "0.0.1",
   "description": "Implementação de versionamento semântico (SemVer 2.0.0) em TypeScript com suporte a parsing, comparação e serialização JSON.",
   "license": "MIT",
   "author": "Tetri Mesquita",
@@ -8,9 +8,9 @@
     "type": "git",
     "url": "git+https://github.com/tetri/SemanticVersioningNPM.git"
   },
-  "homepage": "https://github.com/tetri/SemanticVersioning",
+  "homepage": "https://github.com/tetri/SemanticVersioningNPM",
   "bugs": {
-    "url": "https://github.com/tetri/SemanticVersioning/issues"
+    "url": "https://github.com/tetri/SemanticVersioningNPM/issues"
   },
   "keywords": [
     "semver",
