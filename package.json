@@ -1,6 +1,6 @@
 {
   "name": "@tetri/semantic-versioning",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Implementação de versionamento semântico (SemVer 2.0.0) em TypeScript com suporte a parsing, comparação e serialização JSON.",
   "license": "MIT",
   "author": "Tetri Mesquita",
